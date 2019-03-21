@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="5px" viewBox="0 0 8 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Path 2 Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M17.7012675,21.7128985 C17.3075446,22.1001977 16.674401,22.0949902 16.2871018,21.7012673 C15.8998025,21.3075444 15.90501,20.6744008 16.2987329,20.2871016 L19.3484907,17.2871016 C19.738463,16.9034918 20.3642955,16.9044175 20.7531312,17.2891793 L23.7033735,20.2085114 C24.0959489,20.5969737 24.0992832,21.2301299 23.7108209,21.6227053 C23.3223585,22.0152807 22.6892024,22.0186151 22.2966269,21.6301527 L20.04768,19.4047684 L17.7012675,21.7128985 Z" id="path-1"></path>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Iconography-/-Expand" transform="translate(-16.000000, -17.000000)">
+            <g>
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Path-2-Copy" fill="#353535" fill-rule="nonzero" transform="translate(20.000000, 19.500000) rotate(-180.000000) translate(-20.000000, -19.500000) " xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

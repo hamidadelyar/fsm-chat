@@ -1,0 +1,27 @@
+@import 'partials/_variables'
+    
+// Mixins should be used to create rules for mobile and tablet layout
+@mixin tablet
+  @media (min-width: #{$mobile-width + 1px}) and (max-width: #{$tablet-width})
+    @content
+
+@mixin mobile
+  @media (max-width: #{$mobile-width})
+    @content
+
+@mixin boxShadow
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.15)
+
+@mixin chatBubbleText
+  font-size: 16px
+  color: $chat-dark-grey
+  font-weight: normal
+  font-style: normal
+  font-stretch: normal
+  line-height: normal
+  letter-spacing: -0.4px
+
+@mixin titleText
+  font-size: 15px
+  letter-spacing: -0.2px
+  color: $chat-black

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="8px" viewBox="0 0 8 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>B21B0BEF-A729-4D15-AB9C-B4D8C356980E</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M21.2426407,19.8284271 L23.363961,21.9497475 C23.7544853,22.3402718 23.7544853,22.9734367 23.363961,23.363961 C22.9734367,23.7544853 22.3402718,23.7544853 21.9497475,23.363961 L19.8284271,21.2426407 L17.7071068,23.363961 C17.3165825,23.7544853 16.6834175,23.7544853 16.2928932,23.363961 C15.9023689,22.9734367 15.9023689,22.3402718 16.2928932,21.9497475 L18.4142136,19.8284271 L16.2928932,17.7071068 C15.9023689,17.3165825 15.9023689,16.6834175 16.2928932,16.2928932 C16.6834175,15.9023689 17.3165825,15.9023689 17.7071068,16.2928932 L19.8284271,18.4142136 L21.9497475,16.2928932 C22.3402718,15.9023689 22.9734367,15.9023689 23.363961,16.2928932 C23.7544853,16.6834175 23.7544853,17.3165825 23.363961,17.7071068 L21.2426407,19.8284271 Z" id="path-1"></path>
+    </defs>
+    <g id="eBill" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mobile-Modal-verfication" transform="translate(-335.000000, -34.000000)">
+            <g id="Modal-Header-mobile">
+                <g id="Iconography-/-Close" transform="translate(319.000000, 18.000000)">
+                    <g>
+                        <rect id="Rectangle-11" x="0" y="0" width="40" height="40"></rect>
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Combined-Shape" fill="#353535" fill-rule="nonzero" xlink:href="#path-1"></use>
+                        <g id="Colour-/-🎨Charcoal" mask="url(#mask-2)" fill="#353535">
+                            <rect id="🎨Charcoal" x="0" y="0" width="40" height="40"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,23 @@
+{
+  "name": "SimpleChatbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "gulp watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hamid Adelyar",
+  "license": "ISC",
+  "dependencies": {
+    "gulp-sass": "^4.0.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "gulp": "3.9.1",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-postcss": "^8.0.0",
+    "postcss-import": "^12.0.1"
+  }
+}
