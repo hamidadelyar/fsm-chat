@@ -1,5 +1,6 @@
 // initialize variables
 let shadowRootDoc;
+const bot = new Chat();
 
 /**
  * @description - Scrolls to the bottom of the chat window
@@ -7,7 +8,7 @@ let shadowRootDoc;
 function scrollToBottom() {
   const chatWindow = shadowRootDoc.getElementById("chat-messages");
   chatWindow.scrollBy({
-    top: chatWindow.scrollHeight + 300, // could be negative value
+    top: chatWindow.scrollHeight + 100, // could be negative value
     left: 0,
     behavior: "smooth"
   });
@@ -28,21 +29,18 @@ function sendUserMessageToBot(text) {
   }
 
   if (userMsg) {
+    // display the users message on the chat
     displayMessageOnChat(false, userMsg);
-    console.log("sending the user message to the bot " + userMsg);
-    chatBot(currentState, userMsg);
-    const response = chatBot(currentState)
-    console.log("response from bot: " + JSON.stringify(response, null, 2))
+    
+    const response = bot.talk(userMsg)
     showTypingIndicator();
 
     setTimeout(function(){
       displayMessageOnChat(true, response);
       hideTypingIndicator()
+      scrollToBottom();
     }, 500)
 
-
-    // send message to chatbot
-    scrollToBottom();
   }
 }
 
@@ -119,8 +117,6 @@ function displayMessageOnChat(isAgentMsg, content, hideComponent) {
     // render text message
     if (messages) addMessages(messageContainer, messages);
     if(buttons) addButtons(messageContainer, buttons)
-
-
   } else {
     const messageElem = document.createElement("div");
     messageElem.className = "message";
@@ -238,82 +234,14 @@ function initChatWindow() {
   shadowRootDoc = chatbot.shadowRoot;
 }
 
-
-// finite state machine
-
-let currentState = "greetings";
-
-function chatBot(state, event) {
-  let nextStates;
-  let response;
-
-  switch (state) {
-    case "greetings":
-      response = {
-        messages: ["Hey there", "What can I help with?"],
-        buttons: ["about", "blog"]
-      }
-
-      setState(response.buttons, event);
-
-      return setResponse(response);
-    case "about":
-      response = {
-        messages: ["This is my portfolio", "I have the following projects"],
-        buttons: ["blog", "greetings"]
-      }
-
-      setState(response.buttons, event);
-
-      return setResponse(response);
-    default:
-      response = {
-        messages: ["Sorry didn't understand"],
-        buttons: ["about"]
-      }
-
-      setState(response.buttons, event);
-
-      return setResponse(response);
-  }
-}
-
-function setResponse(response) {
-  return {
-    messages: response.messages,
-    buttons: response.buttons
-  };
-}
-
-function printMessage(state, event) {
-  const response = chatBot(state, event);
-  console.log(JSON.stringify(response, null, 2));
-  console.log("--------------------------");
-}
-
-function setState(nextStates, event) {
-  if (event) {
-    console.log("trying to find event " + event)
-    const nextState = nextStates.find(item => item.toLowerCase() === event.toLowerCase())
-    // set state otherwise keep it at current state
-    if (nextState) {
-      console.log("state changing from " + currentState + " to " + nextState)
-
-      currentState = nextState;
-    }
-  }
-}
-
-
 /**
  * @description Initialises the chat window
  */
 (function main() {
   initChatWindow();
   // initial message to chatbot
-  const response = chatBot(currentState);
+  const response = bot.talk();
   displayMessageOnChat(true, response);
-
 })();
 
 
