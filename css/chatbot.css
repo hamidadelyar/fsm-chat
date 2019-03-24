@@ -252,9 +252,10 @@
   border-radius: 5px;
   position: absolute;
   z-index: 5;
-  bottom: 70px;
+  bottom: 14px;
   left: 25px;
-  opacity: 0; }
+  opacity: 0;
+  background-color: #7ac7fd; }
   #typing-indicator.hide {
     opacity: 0;
     visibility: visible;
@@ -270,7 +271,7 @@
     width: 6px;
     float: left;
     margin: 0 3px;
-    background-color: #7ac7fd;
+    background-color: #fff;
     border-radius: 50%; }
     #typing-indicator span:nth-of-type(1) {
       -webkit-animation: 1s blink infinite 0.2222s;

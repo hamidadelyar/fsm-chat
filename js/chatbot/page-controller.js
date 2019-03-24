@@ -1,6 +1,7 @@
 // initialize variables
 let shadowRootDoc;
 const bot = new Chat();
+const timeDelay = 400;
 
 /**
  * @description - Scrolls to the bottom of the chat window
@@ -18,7 +19,7 @@ function scrollToBottom() {
  * Sends the users input to the chat server
  * @param {String} text
  */
-function sendUserMessageToBot(text) {
+async function sendUserMessageToBot(text) {
   let userMsg;
 
   if (!text) {
@@ -31,19 +32,14 @@ function sendUserMessageToBot(text) {
   if (userMsg) {
     // display the users message on the chat
     displayMessageOnChat(false, userMsg);
-    
-    const response = bot.talk(userMsg)
+
+    const response = bot.talk(userMsg);
     showTypingIndicator();
-
-    setTimeout(function(){
-      displayMessageOnChat(true, response);
-      hideTypingIndicator()
-      scrollToBottom();
-    }, 500)
-
+    await timer(timeDelay);
+    displayMessageOnChat(true, response);
+    hideTypingIndicator();
   }
 }
-
 
 /**
  * @description toggles the typing indicator to appear
@@ -61,17 +57,23 @@ function hideTypingIndicator() {
   typingIndicator.className = "hide";
 }
 
+function timer(ms) {
+  return new Promise(res => setTimeout(res, ms));
+ }
+
 /**
  * @description Create message elements
  * @param {HTMLElement} messageContainer - container to add new elements to
  * @param {Array<String>} messages - array of messages to add
  */
-function addMessages(messageContainer, messages) {
+async function addMessages(messageContainer, messages) {
   for (let i = 0; i < messages.length; i++) {
-    const messageElem = document.createElement("div");
-    messageElem.className = "message";
-    messageElem.innerText = messages[i];
-    messageContainer.appendChild(messageElem);
+      const messageElem = document.createElement("div");
+      messageElem.className = "message";
+      messageElem.innerText = messages[i];
+      messageContainer.appendChild(messageElem);
+      scrollToBottom();
+      await timer(timeDelay);
   }
 }
 
@@ -94,8 +96,8 @@ function addButtons(messageContainer, buttons) {
     buttonContainer.appendChild(buttonElem);
   }
   messageContainer.appendChild(buttonContainer);
+  scrollToBottom();
 }
-
 
 /**
  * @description Display Message on chat
@@ -103,7 +105,7 @@ function addButtons(messageContainer, buttons) {
  * @param {Object} content - recieved from the server
  * @param {Boolean} hideComponent - whether buttons/forms should be hidden for this message or not. Only shown if it is the latest message
  */
-function displayMessageOnChat(isAgentMsg, content, hideComponent) {
+async function displayMessageOnChat(isAgentMsg, content, hideComponent) {
   const chatMessageWindow = shadowRootDoc.getElementById("chat-messages");
 
   const messageContainer = document.createElement("div");
@@ -111,20 +113,21 @@ function displayMessageOnChat(isAgentMsg, content, hideComponent) {
     ? "message-wrapper bot"
     : "message-wrapper user";
 
+  chatMessageWindow.appendChild(messageContainer);
+
   if (isAgentMsg) {
     const messages = content.messages ? content.messages : null;
     const buttons = content.buttons ? content.buttons : null;
     // render text message
     if (messages) addMessages(messageContainer, messages);
-    if(buttons) addButtons(messageContainer, buttons)
+    await timer(timeDelay * messages.length);
+    if (buttons) addButtons(messageContainer, buttons);
   } else {
     const messageElem = document.createElement("div");
     messageElem.className = "message";
     messageElem.innerText = content;
     messageContainer.appendChild(messageElem);
   }
-
-  chatMessageWindow.appendChild(messageContainer);
 }
 
 /**
@@ -180,9 +183,9 @@ function initChatWindow() {
 
   const botTitle = document.createElement("div");
   botTitle.className = "bot-title";
-  botTitle.innerHTML = "Chatbot"
+  botTitle.innerHTML = "Chatbot";
   const botImage = document.createElement("div");
-  botImage.className = 'bot-image';
+  botImage.className = "bot-image";
   chatHeader.appendChild(botImage);
   chatHeader.appendChild(botTitle);
 
@@ -209,7 +212,6 @@ function initChatWindow() {
   typingIndicator.appendChild(dot2);
   typingIndicator.appendChild(dot3);
   chatMessageWindow.appendChild(typingIndicator);
-
 
   const userInputField = document.createElement("input");
   userInputField.id = "user-input";
@@ -243,6 +245,3 @@ function initChatWindow() {
   const response = bot.talk();
   displayMessageOnChat(true, response);
 })();
-
-
-
