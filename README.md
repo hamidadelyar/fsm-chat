@@ -2,6 +2,8 @@
 
 A chatbot implementation using a Finite State Machine (FSM).
 
+![FSM Chatbot in Action](./bot.gif)
+
 ### Prerequisites
 
 You will need to have Node and NPM installed.
