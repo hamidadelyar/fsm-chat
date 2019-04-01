@@ -4,7 +4,7 @@ A chatbot implementation using a Finite State Machine (FSM).
 
 ## Getting Started
 
-The key file in this application is the Chat.js file. This contains the core logic of the chatbot (Where the FSM is created). 
+The key file in this application is the Chat.js file. This contains the core logic of the chatbot (Where the FSM is created). The page-controller.js file is responsible for creating an instance of the Chat class and displaying responses between the user and bot within a chat window that it creates in the Shadow DOM. 
 
 A simple conversation flow, represented in a JSON object.
 
