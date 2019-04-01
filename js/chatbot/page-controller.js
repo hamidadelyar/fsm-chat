@@ -5,17 +5,17 @@ const convFlow = [
     id: "greetings",
     response: {
       messages: [
-        "Hey there my name is Hamid. I'm a software engineer at Accenture",
-        "You can ask me anything from the below questions?"
+        "Hello visitor, welcome to my site, what can I help you with?",
+        "You can select from any of the below buttons"
       ],
       buttons: [
         {
-          state: "greetings",
+          state: "howOld",
           display: "how old are you?"
         },
         {
-          state: "blog",
-          display: "blog"
+          state: "blogAbout",
+          display: "What is your blog about?"
         }
       ]
     }
@@ -24,7 +24,7 @@ const convFlow = [
     id: "howOld",
     response: {
       messages: [
-        "I'm current 24 years old",
+        "I was born in December 1994, I will let you do the math!",
         "what else do you want to know?"
       ],
       buttons: [
@@ -43,7 +43,7 @@ const convFlow = [
     id: "blogAbout",
     response: {
       messages: [
-        "My blog is about tech and programming",
+        "My blog is about tech and programming, visit it and you can find out!",
         "what else do you want to know?"
       ],
       buttons: [
@@ -52,8 +52,24 @@ const convFlow = [
           display: "How old are you?"
         },
         {
-          state: "blog",
-          display: "Blog"
+          state: "postMore",
+          display: "Why don't you post more?"
+        }
+      ]
+    }
+  },
+  {
+    id: "postMore",
+    response: {
+      messages: ["I'm working on it!", "Select another option"],
+      buttons: [
+        {
+          state: "howOld",
+          display: "How old are you?"
+        },
+        {
+          state: "postMore",
+          display: "Why don't you post more?"
         }
       ]
     }
@@ -120,7 +136,7 @@ function hideTypingIndicator() {
 
 function timer(ms) {
   return new Promise(res => setTimeout(res, ms));
- }
+}
 
 /**
  * @description Create message elements
@@ -129,12 +145,12 @@ function timer(ms) {
  */
 async function addMessages(messageContainer, messages) {
   for (let i = 0; i < messages.length; i++) {
-      const messageElem = document.createElement("div");
-      messageElem.className = "message";
-      messageElem.innerText = messages[i];
-      messageContainer.appendChild(messageElem);
-      scrollToBottom();
-      await timer(timeDelay);
+    const messageElem = document.createElement("div");
+    messageElem.className = "message";
+    messageElem.innerText = messages[i];
+    messageContainer.appendChild(messageElem);
+    scrollToBottom();
+    await timer(timeDelay);
   }
 }
 
@@ -148,13 +164,14 @@ function addButtons(messageContainer, buttons) {
   buttonContainer.className = "button-container";
   for (let b = 0; b < buttons.length; b++) {
     const buttonElem = document.createElement("button");
+    const state = buttons[b].state;
     buttonElem.className = "convButton";
     buttonElem.innerText = buttons[b].display;
     buttonElem.setAttribute(
-      "onclick",
-      "sendQuickReply(this, '" + buttons[b].display + "'" + ", '" + buttons[b].state + "')"
-    );
-    buttonElem.setAttribute("state", buttons[b].state)
+      "onClick", 
+      `sendQuickReply(this, '${escapeStringQuotations(buttons[b].display)}', '${state}')`
+    )
+    buttonElem.setAttribute("state", state);
     buttonContainer.appendChild(buttonElem);
   }
   messageContainer.appendChild(buttonContainer);
@@ -222,6 +239,15 @@ function closeChat() {
   chatWindow.className = "hide";
   const openChatButton = shadowRootDoc.getElementById("open-chat");
   openChatButton.className = "show";
+}
+
+/**
+ * @description A function that escapes quotations in a string
+ * @param unformattedString
+ */
+function escapeStringQuotations(unformattedString) {
+  const formattedString = unformattedString.toString().replace(new RegExp("'", 'g'), "\\'");
+  return formattedString.replace(new RegExp('"', 'g'), "\\'");
 }
 
 /**

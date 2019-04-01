@@ -38,17 +38,17 @@ const convFlow = [
         id: "greetings",
         response: {
             messages: [
-            "Hey there my name is Hamid. I'm a software engineer at Accenture",
-            "You can ask me anything from the below questions?"
+                "Hello visitor, welcome to my site, what can I help you with?",
+                "You can select from any of the below buttons"
             ],
             buttons: [
                 {
-                    state: "greetings",
+                    state: "howOld",
                     display: "how old are you?"
                 },
                 {
-                    state: "blog",
-                    display: "blog"
+                    state: "blogAbout",
+                    display: "What is your blog about?"
                 }
             ]
         }
@@ -57,8 +57,8 @@ const convFlow = [
         id: "howOld",
         response: {
             messages: [
-            "I'm current 24 years old",
-            "what else do you want to know?"
+                "I was born in December 1994, I will let you do the math!",
+                "what else do you want to know?"
             ],
             buttons: [
                 {
@@ -76,8 +76,8 @@ const convFlow = [
         id: "blogAbout",
         response: {
             messages: [
-            "My blog is about tech and programming",
-            "what else do you want to know?"
+                "My blog is about tech and programming, visit it and you can find out!",
+                "what else do you want to know?"
             ],
             buttons: [
                 {
@@ -85,11 +85,30 @@ const convFlow = [
                     display: "How old are you?"
                 },
                 {
-                    state: "blog",
-                    display: "Blog"
+                    state: "postMore",
+                    display: "Why don't you post more?"
                 }
             ]
         }
+    },
+    {
+        id: "postMore",
+        response: {
+            messages: [
+                "I'm working on it!",
+                "Select another option"
+            ],
+            buttons: [
+                {
+                    state: "howOld",
+                    display: "How old are you?"
+                },
+                {
+                    state: "postMore",
+                    display: "Why don't you post more?"
+                }
+            ]
+        }   
     },
     {
         id: "incomprehension",
