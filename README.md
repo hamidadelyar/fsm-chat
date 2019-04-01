@@ -141,7 +141,7 @@ To send events (states) to our FSM chatbot, we use the talk() method within the 
 /**
  * Sends the users input to the chat server
  * @param {String} userMsg - This is what we will display in the chat window
- * @param {String} state = This is the 'event' that we will pass to our FSM
+ * @param {String} state - This is the 'event' that we will pass to our FSM
  */
 async function sendUserMessageToBot(userMsg, state) {
   // display the users message on the chat
