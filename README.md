@@ -34,7 +34,7 @@ gulp
 
 Below is a simple conversation flow, represented in a JSON object.
 
-```
+```js
 const convFlow = [
     {
         id: "greetings",
@@ -131,13 +131,13 @@ This is the input to the chatbot, after which it will create an orchestrator, wi
 
 So, to pass this into our Chat class, we first will need to create an instance and then pass our object in.
 
-```
+```js
 const bot = new Chat(convFlow);
 ```
 
 To send events (states) to our FSM chatbot, we use the talk() method within the Chat class. You can see an example of how it is implemented in the page-controller.js
 
-```
+```js
 /**
  * Sends the users input to the chat server
  * @param {String} userMsg - This is what we will display in the chat window
