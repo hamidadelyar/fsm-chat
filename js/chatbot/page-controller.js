@@ -1,6 +1,77 @@
 // initialize variables
 let shadowRootDoc;
-const bot = new Chat();
+const convFlow = [
+  {
+    id: "greetings",
+    response: {
+      messages: [
+        "Hey there my name is Hamid. I'm a software engineer at Accenture",
+        "You can ask me anything from the below questions?"
+      ],
+      buttons: [
+        {
+          state: "greetings",
+          display: "how old are you?"
+        },
+        {
+          state: "blog",
+          display: "blog"
+        }
+      ]
+    }
+  },
+  {
+    id: "howOld",
+    response: {
+      messages: [
+        "I'm current 24 years old",
+        "what else do you want to know?"
+      ],
+      buttons: [
+        {
+          state: "blogAbout",
+          display: "what is your blog about?"
+        },
+        {
+          state: "blog",
+          display: "blog"
+        }
+      ]
+    }
+  },
+  {
+    id: "blogAbout",
+    response: {
+      messages: [
+        "My blog is about tech and programming",
+        "what else do you want to know?"
+      ],
+      buttons: [
+        {
+          state: "howOld",
+          display: "How old are you?"
+        },
+        {
+          state: "blog",
+          display: "Blog"
+        }
+      ]
+    }
+  },
+  {
+    id: "incomprehension",
+    response: {
+      messages: ["Sorry didn't understand"],
+      buttons: [
+        {
+          state: "greetings",
+          display: "greetings"
+        }
+      ]
+    }
+  }
+];
+const bot = new Chat(convFlow);
 const timeDelay = 400;
 
 /**
@@ -17,28 +88,18 @@ function scrollToBottom() {
 
 /**
  * Sends the users input to the chat server
- * @param {String} text
+ * @param {String} userMsg - This is what we will display in the chat window
+ * @param {String} state = This is the 'event' that we will pass to our FSM
  */
-async function sendUserMessageToBot(text) {
-  let userMsg;
+async function sendUserMessageToBot(userMsg, state) {
+  // display the users message on the chat
+  displayMessageOnChat(false, userMsg);
 
-  if (!text) {
-    userMsg = shadowRootDoc.getElementById("user-input").value;
-    shadowRootDoc.getElementById("user-input").value = "";
-  } else {
-    userMsg = text;
-  }
-
-  if (userMsg) {
-    // display the users message on the chat
-    displayMessageOnChat(false, userMsg);
-
-    const response = bot.talk(userMsg);
-    showTypingIndicator();
-    await timer(timeDelay);
-    displayMessageOnChat(true, response);
-    hideTypingIndicator();
-  }
+  const response = bot.talk(state);
+  showTypingIndicator();
+  await timer(timeDelay);
+  displayMessageOnChat(true, response);
+  hideTypingIndicator();
 }
 
 /**
@@ -88,11 +149,12 @@ function addButtons(messageContainer, buttons) {
   for (let b = 0; b < buttons.length; b++) {
     const buttonElem = document.createElement("button");
     buttonElem.className = "convButton";
-    buttonElem.innerText = buttons[b];
+    buttonElem.innerText = buttons[b].display;
     buttonElem.setAttribute(
       "onclick",
-      "sendQuickReply(this, '" + buttons[b] + "')"
+      "sendQuickReply(this, '" + buttons[b].display + "'" + ", '" + buttons[b].state + "')"
     );
+    buttonElem.setAttribute("state", buttons[b].state)
     buttonContainer.appendChild(buttonElem);
   }
   messageContainer.appendChild(buttonContainer);
@@ -134,11 +196,11 @@ async function displayMessageOnChat(isAgentMsg, content, hideComponent) {
  * @description takes the value from a clicked button and sends message to server, as if user has typed it. After, all of the buttons are hidden
  * @param {HTMLElement} data - the html element that has been clicked
  */
-function sendQuickReply(node, text) {
+function sendQuickReply(node, text, state) {
   // hide buttons once clicked
   const buttonContainer = node.parentNode;
   buttonContainer.parentNode.removeChild(buttonContainer);
-  sendUserMessageToBot(text);
+  sendUserMessageToBot(text, state);
 }
 
 /**

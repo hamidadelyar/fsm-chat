@@ -1,62 +1,22 @@
 class Chat {
-  constructor() {
+  constructor(convFlow) {
     this.state = "greetings";
     this.event = "";
     this.callbacks = {}; // contains our cases - will be used by our pseudo switch
     this.response = "";
-    this.createOrchestrator();
+    this.createOrchestrator(convFlow);
   }
 
-  createOrchestrator() {
-    const convFlow = [
-      {
-        name: "greetings",
-        response: {
-          messages: [
-              "Hey there my name is Hamid. I'm a software engineer at Accenture", 
-              "You can ask me anything from the below questions?"
-            ],
-          buttons: ["how old are you?", "blog"]
-        }
-      },
-      {
-        name: "how old are you?",
-        response: {
-          messages: [
-              "I'm current 24 years old", 
-              "what else do you want to know?"
-            ],
-          buttons: ["what is your blog about?", "blog"]
-        }
-      },
-      {
-        name: "what is your blog about?",
-        response: {
-          messages: [
-              "My blog is about tech and programming", 
-              "what else do you want to know?"
-            ],
-          buttons: ["how old are you", "blog"]
-        }
-      },
-      {
-        name: "default",
-        response: {
-          messages: ["Sorry didn't understand"],
-          buttons: ["greetings"]
-        }
-      }
-    ];
-
+  createOrchestrator(convFlow) {
     for (let i = 0; i < convFlow.length; i++) {
-      this.addConversationStep(convFlow[i].name, convFlow[i].response);
+      this.addConversationStep(convFlow[i].id, convFlow[i].response);
     }
   }
 
   /**
    * Creates a new case in our pseudo switch, representing a state in the conversation
-   * @param {*} name 
-   * @param {*} response 
+   * @param {*} name
+   * @param {*} response
    */
   addConversationStep(name, response) {
     const self = this;
@@ -85,7 +45,7 @@ class Chat {
         fn();
       });
     } else {
-      this.callbacks["default"].forEach(function(fn) {
+      this.callbacks["incomprehension"].forEach(function(fn) {
         fn();
       });
     }
@@ -103,37 +63,6 @@ class Chat {
       messages: response.messages,
       buttons: response.buttons
     };
-  }
-
-  /**
-   * @description A finite state machine, representing the orchestration layer of our chatbot
-   */
-  orchestrator() {
-    let response;
-
-    switch (this.state) {
-      case "greetings":
-        response = {
-          messages: ["Hey there", "What can I help with?"],
-          buttons: ["about", "blog"]
-        };
-
-        return this.setResponse(response);
-      case "about":
-        response = {
-          messages: ["This is my portfolio", "I have the following projects"],
-          buttons: ["blog", "greetings"]
-        };
-
-        return this.setResponse(response);
-      default:
-        response = {
-          messages: ["Sorry didn't understand"],
-          buttons: ["about"]
-        };
-
-        return this.setResponse(response);
-    }
   }
 
   /**
@@ -161,9 +90,12 @@ class Chat {
 
   /**
    * @description Sets the next state according by checking the possible next states to see if event is in it
-   * @param {Array} nextStates
+   * @param {Array} buttons
    */
-  setState(nextStates) {
+  setState(buttons) {
+    // derive next states from buttons
+    let nextStates = buttons.map(button => button.state);
+
     const nextState = nextStates.find(
       item => item.toLowerCase() === this.event.toLowerCase()
     );
