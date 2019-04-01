@@ -189,16 +189,11 @@ function initChatWindow() {
   chatHeader.appendChild(botImage);
   chatHeader.appendChild(botTitle);
 
-  const minimizeBtn = document.createElement("div");
   const closeBtn = document.createElement("div");
-  minimizeBtn.className = "chat-header-btn minimize";
   closeBtn.className = "chat-header-btn close";
-
-  minimizeBtn.setAttribute("onclick", "closeChat()");
-  closeBtn.setAttribute("onclick", "resetConversation()");
+  closeBtn.setAttribute("onclick", "closeChat()");
 
   chatHeader.appendChild(closeBtn);
-  chatHeader.appendChild(minimizeBtn);
 
   const chatMessageWindow = document.createElement("div");
   chatMessageWindow.id = "chat-messages";

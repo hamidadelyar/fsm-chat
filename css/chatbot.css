@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 #chat-window {
-  color: #353535; }
+  color: #353535;
+  font-family: 'Roboto', sans-serif; }
 
 @-webkit-keyframes blink {
   0% {
@@ -60,7 +61,7 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background-color: #FFB81C;
+  background-color: #0F24EC;
   position: fixed;
   bottom: 40px;
   right: 20px;
@@ -129,7 +130,7 @@
     letter-spacing: -0.2px;
     color: #000000; }
   .chat-header .bot-image {
-    background-color: #FFB81C;
+    background-color: #0F24EC;
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -232,7 +233,8 @@
   clear: both; }
 
 .message-wrapper.user .message {
-  background-color: #ffb81c;
+  background-color: #0F24EC;
+  color: white;
   position: relative;
   float: right; }
 
@@ -255,7 +257,7 @@
   bottom: 14px;
   left: 25px;
   opacity: 0;
-  background-color: #7ac7fd; }
+  background-color: #0F24EC; }
   #typing-indicator.hide {
     opacity: 0;
     visibility: visible;

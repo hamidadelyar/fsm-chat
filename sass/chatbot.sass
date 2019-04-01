@@ -4,7 +4,7 @@
 
 #chat-window
     color: $chat-dark-grey
-
+    font-family: 'Roboto', sans-serif
 //====================================
 //        Variables and Mixins
 //====================================
@@ -41,7 +41,7 @@
     width: 80px
     height: 80px
     border-radius: 50%
-    background-color: $chat-primary-yellow
+    background-color: $chat-primary-color
     position: fixed
     bottom: 40px
     right: 20px
@@ -111,7 +111,7 @@
         @include titleText
 
     .bot-image
-        background-color: $chat-primary-yellow
+        background-color: $chat-primary-color
         border-radius: 50%
         width: 30px
         height: 30px
@@ -123,7 +123,7 @@
 
     // &::before
     //     content: ''
-    //     background-color: $chat-primary-yellow
+    //     background-color: $chat-primary-color
     //     border-radius: 50%
     //     background-image: url('../img/chat-icon.svg')
     //     background-repeat: no-repeat
@@ -232,24 +232,13 @@
     clear: both
 
 .message-wrapper.user .message
-    background-color: #ffb81c
+    background-color: $chat-primary-color
+    color: white
     position: relative
     float: right    
 
 .message-wrapper.bot .message
     margin-left: 10px 
-    // box-shadow: 0px 13px 15px -11px rgba(60, 134, 246, 1)
-
-// first agent message
-// .message-wrapper.bot .message:first-child::after
-//     width: 30px
-//     height: 30px
-//     content: ''
-//     background-color: $chat-primary-yellow
-//     left: -10px
-//     top: -10px
-//     border-radius: 50%
-//     position: absolute
 
 #typing-indicator
   will-change: transform
@@ -267,7 +256,7 @@
   bottom: 14px
   left: 25px
   opacity: 0 // hidden by default
-  background-color: #7ac7fd
+  background-color: $chat-primary-color
   
   &.hide
     opacity: 0
